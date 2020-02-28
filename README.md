@@ -41,8 +41,8 @@ conda install -y -c conda-forge rabbitmq-server pika
 
 # And we need a taxonomy database and testdata
 conda install -y -c conda-forge osfclient
-osf -p gs29b fetch \
-    gtdb-release89-k31.lca.json.gz \
+osf -p wxf9z fetch \
+    release89/gtdb-release89-k31.lca.json.gz \
     databases/gtdb-release89-k31.lca.json.gz
 # Thanks Titus -- http://ivory.idyll.org/blog/2019-sourmash-lca-db-gtdb.html
 ```
@@ -67,10 +67,18 @@ ipfs daemon &
 nextflow run main.nf
 ```
 
-Now pull some genomes from the `data/test` folder into `data/send` and see how they turn up in `data/receive`. In this example, you only shared data with yourself. To start sharing with others, connect to the queue we provide:
+Now pull some genomes from the `data/test` folder into `data/send` and see how they turn up in `data/receive`. You should find three genomes in there -- while we sent _E. coli_, _Klebsiella_, _Prochlorococcus_ and _Enterococcus_ over the message queue, and our subscription made us receive them all, our genome similarity filter passed only _Enterococcus_. Let's turn this filter off. Put all genomes from `data/send` back into `data/test`, clear `data/receive`, then run:
+
+```bash 
+nextflow run main.nf --filter false
+# Now draw the files as before, and all genomes should pass
+```
+
+In this example, you only shared data with yourself. To start sharing with your friends and colleagues, connect to the queue we provide:
 
 ```bash
-nextflow run main.nf --url amqp://ubugbkyk:GgNs09Y0fnCTTFgEFaBnowTOD-ZFYm3v@swan.rmq.cloudamqp.com/ubugbkyk
+URL=amqp://ubugbkyk:GgNs09Y0fnCTTFgEFaBnowTOD-ZFYm3v@swan.rmq.cloudamqp.com/ubugbkyk
+nextflow run main.nf --url $URL
 ```
 
 
