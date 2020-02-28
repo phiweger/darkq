@@ -1,8 +1,8 @@
-## DarkQ
+# DarkQ
 
 <!-- ![](img/queue.png) -->
 
-<img src="./img/queue.png" alt="centered image" width="500">
+<img src="./img/queue.png" class="center" width="500">
 
 Genomic surveillance is not only limited by the speed at which genomes can be shared, but by how fast they can reach the right person or algorithm to analyse them. If you are monitoring a regional outbreak of a multiresistant _Klebsiella pneumoniae_ and I send you some viral genomes, this will not be too useful.
 
@@ -11,7 +11,7 @@ DarkQ is a messaging service for microbial genomes. Publishers send (infecetious
 DarkQ relies on two main components, a message queue and a file sharing protocol.
 
 
-### Install
+## Install
 
 ```bash
 # IPFS is a peer-to-peer file sharing protocol
@@ -37,7 +37,7 @@ osf -p gs29b fetch \
 ```
 
 
-### Run
+## Run
 
 ```bash
 git clone https://github.com/phiweger/darkq && cd darkq
@@ -61,7 +61,7 @@ Now pull some genomes from the "data/test" folder into "data/send" and see how t
 This will ... and filter the received messages, passing only those that are similar to genomes in a filter collection.
 
 
-### How to subscribe to relevant message queues
+## How to subscribe to relevant message queues
 
 DarkQ allows you to subscribe to an arbitrary number of queues via so called "routing keys". Each routing key is unique and has five properties:
 
