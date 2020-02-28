@@ -16,7 +16,7 @@ DarkQ relies on two main components, a message queue and a file sharing protocol
   <img src="./img/flow.png" width="600">
 </p>
 
-Messages are _MinHash_ signatures of the underlying genomes -- think lossy compression [1]. They can be wired efficiently across the message queue and you can compare the similarity of a pair of genomes through these signatures, too. If a given message passes the filters (subscription, genome similarity), it is downloaded through the second component of DarkQ, namely the _Interplanetary File System_ (IPFS) [protocol](https://ipfs.io/). Basically, it allows decentralized, peer-to-peer file sharing, which we think is crucial in effective genomic surveillance.
+Messages are _MinHash_ signatures of the underlying genomes -- think lossy compression [1]. They can be wired efficiently across the message queue and you can compare the similarity of a pair of genomes through these signatures, too. If a given message passes the filters (subscription, genome similarity), it is downloaded through the second component of DarkQ, namely the _Interplanetary File System_ (IPFS) [protocol](https://ipfs.io/). Basically, it allows decentralized, peer-to-peer file sharing, which we think is crucial for effective genomic surveillance.
 
 [1]: Ondov, Brian D. et al., 2016. “Mash: Fast Genome and Metagenome Distance Estimation Using MinHash.” Genome Biology 17 (1): 132.
 
