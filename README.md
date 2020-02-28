@@ -1,6 +1,8 @@
 ## DarkQ
 
-![](img/queue.png)
+<!-- ![](img/queue.png) -->
+
+<img src="./img/queue.png" width="200">
 
 Genomic surveillance is not only limited by the speed at which genomes can be shared, but by how fast they can reach the right person or algorithm to analyse them. If you are monitoring a regional outbreak of a multiresistant _Klebsiella pneumoniae_ and I send you some viral genomes, this will not be too useful.
 
