@@ -8,7 +8,7 @@
 
 Genomic surveillance is not only limited by the speed at which genomes can be shared, but by how fast they can reach the right person or algorithm to analyse them. If you are monitoring a regional outbreak of a multiresistant _Klebsiella pneumoniae_ and I send you some viral genomes, this will not be too useful.
 
-DarkQ is a messaging queue for microbial genomes. Publishers send (infectious) messages and subscribers receive a filtered subset, depending on their preferences. Say I publish all the stuff we sequence during the month, amongst other things some _Klebsiella_. Now you subscribe to the _Klebsiella_ queue, or even more general to all Enterobacterales from Germany, and you filter the messages for genomes that are similar to the isolates in your current outbreak. You might discover, that some of my isolates are from the same lineage as your outbreak isolates. Now you can contact me and we can take action to limit the spread of this strain.
+DarkQ is a messaging queue for microbial genomes. Publishers (P) send (infectious) messages and consumers (C) subscribe to a filtered subset, depending on their preferences. Say I publish all the stuff we sequence during the month, amongst other things some _Klebsiella_. Now you subscribe to the _Klebsiella_ queue, or even more general to all Enterobacterales from Germany, and you filter the messages for genomes that are similar to the isolates in your current outbreak. You might discover, that some of my isolates are from the same lineage as your outbreak isolates. Now you can contact me and we can take action to limit the spread of this strain.
 
 DarkQ relies on two main components, a message queue and a file sharing protocol. 
 
