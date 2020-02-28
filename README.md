@@ -3,7 +3,7 @@
 <!-- ![](img/queue.png) -->
 
 <p align="center">
-  <img src="./img/queue.png" width="500">
+  <img src="./img/queue.png" width="600">
 </p>
 
 Genomic surveillance is not only limited by the speed at which genomes can be shared, but by how fast they can reach the right person or algorithm to analyse them. If you are monitoring a regional outbreak of a multiresistant _Klebsiella pneumoniae_ and I send you some viral genomes, this will not be too useful.
@@ -13,7 +13,7 @@ DarkQ is a messaging queue for microbial genomes. Publishers (P) send (infectiou
 DarkQ relies on two main components, a message queue and a file sharing protocol. 
 
 <p align="center">
-  <img src="./img/flow.png" width="500">
+  <img src="./img/flow.png" width="600">
 </p>
 
 Messages are _MinHash_ signatures of the underlying genomes -- think lossy compression [1]. They can be wired efficiently across the message queue and you can compare the similarity of a pair of genomes through these signatures, too. If a given message passes the filters (subscription, genome similarity), it is downloaded through the second component of DarkQ, namely the _Interplanetary File System_ (IPFS) [protocol](https://ipfs.io/). Basically, it allows decentralized, peer-to-peer file sharing, which we think is crucial in effective genomic surveillance.
