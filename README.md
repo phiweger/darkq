@@ -33,6 +33,7 @@ cd go-ipfs
 # DarkQ has a couple of needs
 conda create -n darkq -y python=3.7 && conda activate darkq
 conda install -y -c bioconda sourmash nextflow
+conda install -y -c conda-forge geocoder
 
 # RabbitMQ is used to publish and subscribe to messages
 # https://www.rabbitmq.com/download.html
