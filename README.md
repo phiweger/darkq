@@ -61,9 +61,11 @@ ipfs daemon &
 nextflow run main.nf
 ```
 
-Now pull some genomes from the "data/test" folder into "data/send" and see how they turn up in "data/receive"
+Now pull some genomes from the `data/test` folder into `data/send` and see how they turn up in `data/receive`. In this example, you only shared data with yourself. To start sharing with others, connect to the queue we provide:
 
-This will ... and filter the received messages, passing only those that are similar to genomes in a filter collection.
+```bash
+nextflow run main.nf --url amqp://ubugbkyk:GgNs09Y0fnCTTFgEFaBnowTOD-ZFYm3v@swan.rmq.cloudamqp.com/ubugbkyk
+```
 
 
 ## How to subscribe to relevant message queues
@@ -76,7 +78,7 @@ DarkQ allows you to subscribe to an arbitrary number of queues via so called "ro
 4. taxon level (either one of superkingdom, phylum, class, order, family, genus, species, strain)
 5. taxon name at that level (e.g. "Klebsiella" for genus) -- these are adapted from and must conform to the [GTDB r89](https://gtdb.ecogenomic.org/)
 
-These queues are declared in `tags.csv`, where empty fields means "all". For example, lets subscibe to three queues:
+These queues are declared in `tags.csv`, where empty fields mean "all". For example, let's subscibe to three queues:
 
 - all genomes from the Prochlorococcus genus
 - all genomes sent by "user1" belonging to Klebsiella pneumoniae
@@ -89,9 +91,7 @@ user1,,,species,Klebsiella pneumoniae
 ,DE,mystery,,
 ```
 
-For published messages, these tags are automatically generated. Only the receiver needs to explicitly state the desired message tags.
-
-Routing keys act as filters to the messages received over the queue. DarkQ offers a second filter, that allows genome similarity-based filtering. This filter consists of a _Sequence Bloom Tree_ (SBT) of _MinHash_ signatures as generated using `sourmash index` (see above). It is declared in the `nextflow.config`.
+For published messages, these tags are automatically generated. Only the receiver needs to explicitly state the desired message tags. Routing keys act as filters to the messages received over the queue. DarkQ offers a second filter, that allows similarity-based genome filtering. This filter consists of a _Sequence Bloom Tree_ (SBT) of _MinHash_ signatures as generated using `sourmash index` (see above). It is declared in the `nextflow.config`.
 
 
 
