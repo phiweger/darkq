@@ -20,9 +20,11 @@ DarkQ relies on two main components, a message queue and a file sharing protocol
   <img src="./img/flow.png" width="600">
 </p>
 
-Messages are _MinHash_ signatures of the underlying genomes -- think lossy compression [1]. They can be wired efficiently across the message queue and you can compare the similarity of a pair of genomes through these signatures, too. If a given message passes the filters (subscription, genome similarity), it is downloaded through the second component of DarkQ, namely the _Interplanetary File System_ (IPFS) [protocol](https://ipfs.io/). Basically, it allows decentralized, peer-to-peer file sharing, which we think is crucial for effective genomic surveillance.
+Messages are _MinHash_ signatures of the underlying genomes -- think lossy compression [1]. They can be wired efficiently across the message queue and you can compare the similarity of a pair of genomes through these signatures, too. DarkQ uses the `sourmash` implementation of _MinHash_ [2]. If a given message passes the filters (subscription, genome similarity), it is downloaded through the second component of DarkQ, namely the _Interplanetary File System_ (IPFS) [protocol](https://ipfs.io/). Basically, it allows decentralized, peer-to-peer file sharing, which we think is crucial for effective genomic surveillance.
 
-[1]: Ondov, Brian D. et al., 2016. “Mash: Fast Genome and Metagenome Distance Estimation Using MinHash.” Genome Biology 17 (1): 132.
+[1]: Ondov et al., 2016. “Mash: Fast Genome and Metagenome Distance Estimation Using MinHash.” Genome Biology 17 (1): 132.
+
+[2]: Pierce et al., 2019. “Large-Scale Sequence Comparisons with sourmash.” F1000Research 8 (July): 1006.
 
 
 ## Install
@@ -31,7 +33,7 @@ Messages are _MinHash_ signatures of the underlying genomes -- think lossy compr
 # DarkQ has a couple of needs
 conda create -n darkq -y python=3.7 && conda activate darkq
 conda install -y -c bioconda sourmash nextflow
-conda install -y -c conda-forge geocoder
+conda install -y -c conda-forge geocoder osfclient
 
 # IPFS is a peer-to-peer file sharing protocol
 # https://docs.ipfs.io/guides/guides/install/
@@ -42,13 +44,6 @@ cd go-ipfs
 # RabbitMQ is used to publish and subscribe to messages
 # https://www.rabbitmq.com/download.html
 conda install -y -c conda-forge rabbitmq-server pika
-
-# And we need a taxonomy database and testdata
-conda install -y -c conda-forge osfclient
-osf -p wxf9z fetch \
-    release89/gtdb-release89-k31.lca.json.gz \
-    databases/gtdb-release89-k31.lca.json.gz
-# Thanks Titus -- http://ivory.idyll.org/blog/2019-sourmash-lca-db-gtdb.html
 ```
 
 
@@ -56,6 +51,12 @@ osf -p wxf9z fetch \
 
 ```bash
 git clone https://github.com/phiweger/darkq && cd darkq
+
+# We need a taxonomy database to assign genomes to queues
+osf -p wxf9z fetch \
+    release89/gtdb-release89-k31.lca.json.gz \
+    databases/gtdb-release89-k31.lca.json.gz
+# Thanks Titus -- http://ivory.idyll.org/blog/2019-sourmash-lca-db-gtdb.html
 
 # Create a custom database, which will filter the messages for similar genomes
 sourmash compute -k31 --scale 1000 data/filter/*
