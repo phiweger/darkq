@@ -86,6 +86,8 @@ URL=amqp://ubugbkyk:GgNs09Y0fnCTTFgEFaBnowTOD-ZFYm3v@swan.rmq.cloudamqp.com/ubug
 nextflow run main.nf --url $URL
 ```
 
+More settings, such as sketch size and user name, can be found in the `nextflow.config` file.
+
 
 ## How to subscribe to relevant message queues
 
