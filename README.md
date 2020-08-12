@@ -1,3 +1,5 @@
+![](https://img.shields.io/badge/nextflow-20.07.1-brightgreen)
+
 # DarkQ
 
 <!-- ![](img/queue.png) -->
@@ -37,9 +39,13 @@ conda install -y -c conda-forge geocoder osfclient
 
 # IPFS is a peer-to-peer file sharing protocol
 # https://docs.ipfs.io/guides/guides/install/
+# for example on linux do
+wget -O go-ipfs.tar.gz https://github.com/ipfs/go-ipfs/releases/download/v0.6.0/go-ipfs_v0.6.0_linux-amd64.tar.gz
 tar xvfz go-ipfs.tar.gz
 cd go-ipfs
+# the next command might need sudo permission
 ./install.sh
+ipfs init
 
 # RabbitMQ is used to publish and subscribe to messages
 # https://www.rabbitmq.com/download.html
@@ -69,10 +75,11 @@ rabbitmq-server &
 ipfs daemon &
 
 # Start sending/ receiving infectious messages
-nextflow run main.nf
+mkdir -p data/send
+nextflow run main.nf 
 ```
 
-Now pull some genomes from the `data/test` folder into `data/send` and see how they turn up in `data/receive`. You should find three genomes in there -- while we sent _E. coli_, _Klebsiella_, _Prochlorococcus_ and _Enterococcus_ over the message queue, and our subscription made us receive them all, our genome similarity filter passed only _Enterococcus_. Let's turn this filter off. Put all genomes from `data/send` back into `data/test`, clear `data/receive`, then run:
+Now pull some genomes from the `data/test` folder into `data/send` and see how they turn up in `data/receive`. After copying all genomes from `data/test` to `data/send` you should find three genomes in `data/receive` -- while we sent _E. coli_, _Klebsiella_, _Prochlorococcus_ and _Enterococcus_ over the message queue, and our subscription made us receive them all, our genome similarity filter passed only _Enterococcus_ to the `data/receive` folder. Let's turn this filter off. Put all genomes from `data/send` back into `data/test`, clear `data/receive`, then run:
 
 ```bash 
 nextflow run main.nf --filter false
@@ -99,10 +106,10 @@ DarkQ allows you to subscribe to an arbitrary number of queues via so called "ro
 4. taxon level (either one of superkingdom, phylum, class, order, family, genus, species, strain)
 5. taxon name at that level (e.g. "Klebsiella" for genus) -- these are adapted from and must conform to the [GTDB r89](https://gtdb.ecogenomic.org/)
 
-These queues are declared in `tags.csv`, where empty fields mean "all". For example, let's subscibe to three queues:
+These queues are declared in `tags.csv`, where empty fields mean "all". For example, let's subscribe to three queues:
 
-- all genomes from the Prochlorococcus genus
-- all genomes sent by "user1" belonging to Klebsiella pneumoniae
+- all genomes from the _Prochlorococcus_ genus
+- all genomes sent by "user1" belonging to _Klebsiella pneumoniae_
 - all genomes sent from Germany with an unknown taxonomy
 
 ```csv
