@@ -1,18 +1,16 @@
-nextflow.preview.dsl = 2
+nextflow.enable.dsl = 2
 
-
-include './modules/processes.nf'
-
+include {p2p; send; sketch; taxonomy; receive_filter; receive_nofilter} from './modules/processes.nf'
 
 def helpMessage() {
     log.info"""
     Usage:
 
     # Start the IPFS daemon
-    ipfs daemon
+    ipfs daemon &
     
     # Start the local RabbitMQ server if no url
-    rabbitmq-server
+    rabbitmq-server &
     
     # The typical command for running the pipeline is as follows:
     nextflow main.nf --help
@@ -35,6 +33,10 @@ if (params.help){
     exit 0
 }
 
+if( !nextflow.version.matches('20.+') ) {
+    println "This workflow requires Nextflow version 20.X or greater -- You are running version $nextflow.version"
+    exit 1
+}
 
 // Check if IPFS daemon is running:
 file(params.p2p_daemon, hidden: true, checkIfExists: true)

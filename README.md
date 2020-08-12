@@ -1,3 +1,5 @@
+![](https://img.shields.io/badge/nextflow-20.07.1-brightgreen)
+
 # DarkQ
 
 <!-- ![](img/queue.png) -->
@@ -37,9 +39,13 @@ conda install -y -c conda-forge geocoder osfclient
 
 # IPFS is a peer-to-peer file sharing protocol
 # https://docs.ipfs.io/guides/guides/install/
+# for example on linux do
+wget -O go-ipfs.tar.gz https://github.com/ipfs/go-ipfs/releases/download/v0.6.0/go-ipfs_v0.6.0_linux-amd64.tar.gz
 tar xvfz go-ipfs.tar.gz
 cd go-ipfs
+# the next command might need sudo permission
 ./install.sh
+ipfs init
 
 # RabbitMQ is used to publish and subscribe to messages
 # https://www.rabbitmq.com/download.html
@@ -69,6 +75,7 @@ rabbitmq-server &
 ipfs daemon &
 
 # Start sending/ receiving infectious messages
+mkdir -p data/send
 nextflow run main.nf
 ```
 
