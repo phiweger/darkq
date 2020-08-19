@@ -52,6 +52,7 @@ workflow {
     genomes_ch = Channel
         .watchPath(params.send, 'create,modify')
         .map { file -> tuple(file.baseName, file) }
+        .unique()
         // file.name, file.simpleName, file.baseName
         // https://github.com/nextflow-io/nextflow/issues/278
 
