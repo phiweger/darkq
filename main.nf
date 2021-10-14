@@ -33,10 +33,6 @@ if (params.help){
     exit 0
 }
 
-if( !nextflow.version.matches('20.+') ) {
-    println "This workflow requires Nextflow version 20.X or greater -- You are running version $nextflow.version"
-    exit 1
-}
 
 // Check if IPFS daemon is running:
 file(params.p2p_daemon, hidden: true, checkIfExists: true)
